@@ -7,7 +7,7 @@
 body {
     background-color: var(--vault-bg);
     color: white;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
     padding: 20px;
@@ -22,11 +22,25 @@ body {
     border: 1px solid #333;
 }
 
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .brand {
     font-weight: 900;
     letter-spacing: 4px;
     color: var(--vault-gold);
     font-size: 1.5rem;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #00ff88;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00ff88;
 }
 
 .card {
@@ -51,7 +65,13 @@ body {
     padding: 15px 5px;
     border-radius: 12px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    transition: 0.2s;
+}
+
+.action-btn:hover {
+    background: var(--vault-gold);
+    color: black;
 }
 
 .history .item {
@@ -59,6 +79,7 @@ body {
     justify-content: space-between;
     padding: 15px 0;
     border-bottom: 1px solid #333;
+    font-size: 0.9rem;
 }
 
 .neg { color: #ff4d4d; }
