@@ -1,0 +1,65 @@
+:root {
+    --vault-gold: #d4af37;
+    --vault-bg: #121212;
+    --vault-card: #1e1e1e;
+}
+
+body {
+    background-color: var(--vault-bg);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.vault-app {
+    width: 100%;
+    max-width: 400px;
+    background: var(--vault-card);
+    border-radius: 30px;
+    padding: 25px;
+    border: 1px solid #333;
+}
+
+.brand {
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: var(--vault-gold);
+    font-size: 1.5rem;
+}
+
+.card {
+    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+    padding: 30px;
+    border-radius: 20px;
+    margin: 30px 0;
+    text-align: center;
+    border: 1px solid var(--vault-gold);
+}
+
+.quick-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.action-btn {
+    background: #333;
+    border: none;
+    color: white;
+    padding: 15px 5px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.history .item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #333;
+}
+
+.neg { color: #ff4d4d; }
+.pos { color: #00ff88; }
