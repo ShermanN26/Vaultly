@@ -1,87 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vaultly Banking | Secure Wealth</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Vaultly | Gaming Bank</title>
 </head>
-<body>
-    <div class="vault-app">
-        <header>
-            <div class="brand">VAULTLY</div>
-            <div class="status-dot" title="System Online"></div>
-        </header>
+<body class="neon-theme">
+    <div class="vault-container">
+        <h1>VAULTLY</h1>
+        <div class="balance-display">
+            <small>CURRENT ASSETS</small>
+            <h2>${{ balance }}</h2>
+        </div>
 
-        <main>
-            <section class="card">
-                <p>Total Net Worth</p>
-                <h1 id="balance-text">R 10,500.00</h1>
-            </section>
+        {% if message %} <p class="alert">{{ message }}</p> {% endif %}
 
-            <div class="quick-actions">
-                <button class="action-btn" onclick="handlePay()">💸 Pay</button>
-                <button class="action-btn" onclick="handleDeposit()">📥 Deposit</button>
-                <button class="action-btn" onclick="handleTransfer()">🔄 Transfer</button>
-            </div>
-
-            <section class="history">
-                <h3>Transaction History</h3>
-                <div id="history-list">
-                    <div class="item"><span>Initial Vault Setup</span> <span class="pos">+R10,500.00</span></div>
-                </div>
-            </section>
-        </main>
+        <div class="game-zone">
+            <h3>Double or Nothing</h3>
+            <form action="/gamble" method="post">
+                <input type="number" name="bet" placeholder="Enter Bet Amount">
+                <button type="submit" class="glow-button">ALL IN</button>
+            </form>
+        </div>
     </div>
-
-    <script>
-        let currentBalance = 10500.00;
-        const balanceDisplay = document.getElementById('balance-text');
-        const historyList = document.getElementById('history-list');
-
-        function formatMoney(amount) {
-            return "R " + amount.toLocaleString('en-ZA', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-        }
-
-        function addHistory(label, amount, type) {
-            const div = document.createElement('div');
-            div.className = 'item';
-            div.innerHTML = `<span>${label}</span> <span class="${type}">${amount > 0 ? '+' : ''}${formatMoney(amount)}</span>`;
-            historyList.prepend(div);
-        }
-
-        function handleDeposit() {
-            let amount = parseFloat(prompt("Enter amount to deposit into Vault:"));
-            if (amount > 0) {
-                currentBalance += amount;
-                balanceDisplay.innerText = formatMoney(currentBalance);
-                addHistory("Manual Deposit", amount, "pos");
-            }
-        }
-
-        function handlePay() {
-            let amount = parseFloat(prompt("Enter amount to pay:"));
-            if (amount > 0 && amount <= currentBalance) {
-                currentBalance -= amount;
-                balanceDisplay.innerText = formatMoney(currentBalance);
-                addHistory("Service Payment", -amount, "neg");
-            } else {
-                alert("Insufficient funds in your Vaultly account.");
-            }
-        }
-
-        function handleTransfer() {
-            let person = prompt("Enter recipient name:");
-            let amount = parseFloat(prompt(`Amount to transfer to ${person}:`));
-            if (amount > 0 && amount <= currentBalance) {
-                currentBalance -= amount;
-                balanceDisplay.innerText = formatMoney(currentBalance);
-                addHistory(`Transfer to ${person}`, -amount, "neg");
-            } else {
-                alert("Transfer failed. Please check balance.");
-            }
-        }
-    </script>
 </body>
 </html>
+
 
