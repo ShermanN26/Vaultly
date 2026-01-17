@@ -1,30 +1,29 @@
-# VAULTLY BANKING SYSTEM - CORE LOGIC
-# Location: Upington, South Africa
+from flask import Flask, render_template, request, session, redirect
+import random
 
-class VaultlyAccount:
-    def __init__(self, owner, pin, balance=0):
-        self.owner = owner
-        self.pin = pin
-        self.balance = balance
-        self.history = []
+app = Flask(__name__)
+app.secret_key = 'vaultly_secret'
 
-    def get_balance(self):
-        return f"R {self.balance:,.2f}"
+@app.route('/')
+def home():
+    if 'balance' not in session:
+        session['balance'] = 1000  # Starting cash
+    return render_template('index.html', balance=session['balance'])
 
-    def deposit(self, amount):
-        if amount > 0:
-            self.balance += amount
-            self.history.append(f"Deposit: +R{amount:,.2f}")
-            return True
-        return False
+@app.route('/gamble', methods=['POST'])
+def gamble():
+    bet = int(request.form.get('bet', 0))
+    if 0 < bet <= session['balance']:
+        if random.choice([True, False]):
+            session['balance'] += bet
+            msg = f"WINNER! You gained ${bet}!"
+        else:
+            session['balance'] -= bet
+            msg = f"BUST! You lost ${bet}."
+    else:
+        msg = "Invalid bet!"
+    return render_template('index.html', balance=session['balance'], message=msg)
 
-    def transfer(self, amount, recipient):
-        if 0 < amount <= self.balance:
-            self.balance -= amount
-            self.history.append(f"Transfer to {recipient}: -R{amount:,.2f}")
-            return True
-        return False
-
-# Quick Test for the Coach
-my_vault = VaultlyAccount("User", "1234", 10500)
-print(f"Vaultly Active: {my_vault.owner}'s Balance is {my_vault.get_balance()}")
+if __name__ == '__main__':
+    app.run(debug=True)
+    
