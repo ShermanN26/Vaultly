@@ -1,92 +1,27 @@
-/* --- Vaultly Neon Theme --- */
+/* This makes the background look like a dark vault */
 body {
-    background-color: #0d0221; /* Deep space purple */
-    color: #00f2ff; /* Cyber cyan */
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: radial-gradient(circle, #1a1a2e 0%, #16213e 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    overflow: hidden;
+    font-family: 'Inter', sans-serif;
 }
 
-.vault-container {
-    background: rgba(15, 15, 35, 0.9);
-    padding: 3rem;
-    border-radius: 20px;
-    border: 2px solid #00f2ff;
-    box-shadow: 0 0 20px #00f2ff, inset 0 0 10px #00f2ff;
+/* This is the "Glass" card where your balance sits */
+.vault-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    padding: 50px;
+    box-shadow: 0 0 40px rgba(0, 255, 136, 0.1); /* Subtle green glow */
     text-align: center;
-    width: 350px;
 }
 
-h1 {
+.balance-text {
     font-size: 3rem;
-    letter-spacing: 5px;
-    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
-    color: #fff;
-    margin-bottom: 10px;
+    color: #00ff88; /* Cyberpunk Green */
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
 }
-
-.balance-display {
-    margin: 20px 0;
-    padding: 20px;
-    background: #1a1a2e;
-    border-radius: 10px;
-    border: 1px solid #ff00ff;
-}
-
-.balance-display h2 {
-    font-size: 2.5rem;
-    margin: 5px 0;
-    color: #00f2ff;
-    animation: pulse 2s infinite;
-}
-
-.game-zone {
-    margin-top: 30px;
-}
-
-input[type="number"] {
-    background: transparent;
-    border: 1px solid #00f2ff;
-    padding: 10px;
-    color: white;
-    border-radius: 5px;
-    width: 80%;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.glow-button {
-    background: #ff00ff;
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: 0.3s;
-    box-shadow: 0 0 15px #ff00ff;
-}
-
-.glow-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 30px #ff00ff;
-}
-
-.alert {
-    color: #ffde00;
-    font-weight: bold;
-    text-shadow: 0 0 5px #000;
-}
-
-/* Pulse animation for the money */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); text-shadow: 0 0 20px #00f2ff; }
-    100% { transform: scale(1); }
-}
-
