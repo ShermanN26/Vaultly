@@ -1,27 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Vaultly | Gaming Bank</title>
+<style>
+  body {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .bank-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    text-align: center;
+    width: 350px;
+  }
+  .balance {
+    font-size: 2.5rem;
+    margin: 20px 0;
+    color: #00ff88;
+  }
+  button {
+    background: #6e8efb;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  button:hover { background: #a777e3; }
+</style>
 </head>
-<body class="neon-theme">
-    <div class="vault-container">
-        <h1>VAULTLY</h1>
-        <div class="balance-display">
-            <small>CURRENT ASSETS</small>
-            <h2>${{ balance }}</h2>
-        </div>
+<body>
 
-        {% if message %} <p class="alert">{{ message }}</p> {% endif %}
+<div class="bank-card">
+  <h2>Vaultly Bank</h2>
+  <p>Welcome back, Sherman</p>
+  <div class="balance">$1,250.00</div>
+  <button onclick="alert('Transaction Menu Opening...')">Deposit Money</button>
+</div>
 
-        <div class="game-zone">
-            <h3>Double or Nothing</h3>
-            <form action="/gamble" method="post">
-                <input type="number" name="bet" placeholder="Enter Bet Amount">
-                <button type="submit" class="glow-button">ALL IN</button>
-            </form>
-        </div>
-    </div>
 </body>
 </html>
 
