@@ -1,29 +1,49 @@
-from flask import Flask, render_template, request, session, redirect
-import random
+import json
+import datetime
+from cryptography.fernet import Fernet
+import os
 
-app = Flask(__name__)
-app.secret_key = 'vaultly_secret'
+class VaultlyBank:
+    def __init__(self, filename="vault_encrypted.dat", key_file="vault.key"):
+        self.filename = filename
+        self.key_file = key_file
+        self.key = self.load_key()
+        self.fernet = Fernet(self.key)
+        self.accounts = self.load_data()
 
-@app.route('/')
-def home():
-    if 'balance' not in session:
-        session['balance'] = 1000  # Starting cash
-    return render_template('index.html', balance=session['balance'])
+    def load_key(self):
+        if os.path.exists(self.key_file):
+            with open(self.key_file, "rb") as f:
+                return f.read()
+        key = Fernet.generate_key()
+        with open(self.key_file, "wb") as f:
+            f.write(key)
+        return key
 
-@app.route('/gamble', methods=['POST'])
-def gamble():
-    bet = int(request.form.get('bet', 0))
-    if 0 < bet <= session['balance']:
-        if random.choice([True, False]):
-            session['balance'] += bet
-            msg = f"WINNER! You gained ${bet}!"
-        else:
-            session['balance'] -= bet
-            msg = f"BUST! You lost ${bet}."
-    else:
-        msg = "Invalid bet!"
-    return render_template('index.html', balance=session['balance'], message=msg)
+    def load_data(self):
+        if not os.path.exists(self.filename):
+            return {}
+        try:
+            with open(self.filename, "rb") as f:
+                encrypted_data = f.read()
+            decrypted_data = self.fernet.decrypt(encrypted_data)
+            return json.loads(decrypted_data.decode())
+        except Exception:
+            return {}
 
-if __name__ == '__main__':
-    app.run(debug=True)
-    
+    def save_data(self):
+        data_str = json.dumps(self.accounts).encode()
+        encrypted_data = self.fernet.encrypt(data_str)
+        with open(self.filename, "wb") as f:
+            f.write(encrypted_data)
+
+    def signup(self):
+        name = input("Enter Name: ")
+        pin = input("Create 4-digit PIN: ")
+        self.accounts[name] = {"pin": pin, "balance": 0.0, "history": []}
+        self.save_data()
+        print("Account secured and saved!")
+
+# Usage
+bank = VaultlyBank()
+bank.signup()
